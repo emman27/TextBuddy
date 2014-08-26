@@ -7,6 +7,8 @@
 #include <fstream>
 #include <vector>
 
+const std::string FILE_ALREADY_SPECIFIED = "filealreadyspecified";
+
 void print_error_msg(std::string msg){
 	std::vector<std::string> data;
 	std::cout << "Operation failed. Reason: " << msg << std::endl;
@@ -27,10 +29,11 @@ std::string get_filename(){
 }
 
 std::string check_file(int i){
-	std::string s = "filealreadyspecified";
+	std::string s = FILE_ALREADY_SPECIFIED;
 	while (!check_file_specified(i)){
 		print_error_msg("Txt file not specified.");
-		get_filename();
+		s = get_filename();
+		if (s != FILE_ALREADY_SPECIFIED) i++;
 	}
 	return s;
 }
@@ -58,7 +61,7 @@ std::string request_command(){
 	return cmd;
 }
 
-std::vector<std::string> add(std::vector<std::string> data, std::string filename){
+std::vector<std::string> add(std::vector<std::string> &data, std::string filename){
 	std::string line;
 	std::getline(std::cin, line);
 	std::cout << "Added to " << filename << ": " << line << std::endl;
@@ -66,7 +69,7 @@ std::vector<std::string> add(std::vector<std::string> data, std::string filename
 	return data;
 }
 
-std::vector<std::string> del(std::vector<std::string> data, std::string filename){
+std::vector<std::string> del(std::vector<std::string> &data, std::string filename){
 	unsigned int linenum;
 	std::cin >> linenum;
 	if (linenum <= data.size() && linenum > 0){
@@ -79,13 +82,13 @@ std::vector<std::string> del(std::vector<std::string> data, std::string filename
 	return data;
 }
 
-std::vector<std::string> clear(std::vector<std::string> data, std::string filename){
+std::vector<std::string> clear(std::vector<std::string> &data, std::string filename){
 	data.clear();
 	std::cout << "All content deleted from " << filename << std::endl;
 	return data;
 }
 
-void print_data(std::vector<std::string> data){
+void print_data(std::vector<std::string> &data){
 	for (unsigned int i = 0; i < data.size(); i++){
 		std::cout << i + 1 << ". " << data[i] << std::endl;
 	}
@@ -100,7 +103,7 @@ void display(std::vector<std::string> data, std::string filename){
 	}
 }
 
-std::vector<std::string> process_cmd(std::string cmd, std::vector<std::string> data, std::string filename){
+std::vector<std::string> process_cmd(std::string cmd, std::vector<std::string> &data, std::string filename){
 	if (cmd == "add"){
 		data = add(data, filename);
 	}
@@ -113,13 +116,18 @@ std::vector<std::string> process_cmd(std::string cmd, std::vector<std::string> d
 	else if (cmd == "display"){
 		display(data, filename);
 	}
+	else if (cmd == "exit"){
+		NULL;
+	}
 	else{
+		std::string burnline;
+		getline(std::cin,burnline);
 		print_error_msg("Command not recognised");
 	}
 	return data;
 }
 
-void save_data(std::vector<std::string> data, std::string filename){
+void save_data(std::vector<std::string> &data, std::string filename){
 	std::fstream myfile;
 	myfile.open(filename, std::ios::trunc | std::ios::out);
 	for (unsigned int i = 0; i < data.size(); i++){
@@ -128,8 +136,8 @@ void save_data(std::vector<std::string> data, std::string filename){
 	myfile.close();
 }
 
-void mainloop(std::vector<std::string> data, std::string filename){
-	std::string cmd = NULL;
+void mainloop(std::vector<std::string> &data, std::string filename){
+	std::string cmd = "";
 	while(cmd != "exit"){
 		cmd = request_command();
 		data = process_cmd(cmd, data, filename);
@@ -143,11 +151,11 @@ int main(int argc, char* argv[])
 	std::vector<std::string> data;
 	
 	filename = check_file(argc);
-	if (filename == "filealreadyspecified") filename = argv[1];
+	if (filename == FILE_ALREADY_SPECIFIED) filename = argv[1];
 
 	data = read_file(filename);
 
-	print_welcome(argv[1]);
+	print_welcome(filename);
 	mainloop(data, filename);
 	return 1;
 }
