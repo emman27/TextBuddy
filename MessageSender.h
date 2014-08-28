@@ -5,6 +5,8 @@
 #include <vector>
 #include <string>
 
+//This class handles printing
+
 class MessageSender{
 private:
 

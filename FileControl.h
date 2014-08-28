@@ -4,6 +4,8 @@
 #include <fstream>
 #include "MessageSender.h"
 
+//This class handles operations regarding the txt file where data is saved
+
 class FileControl{
 
 private:

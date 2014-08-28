@@ -6,6 +6,7 @@
 #include <vector>
 #include "MessageSender.h"
 
+//This class handles the various available operations
 
 class CommandHandler{
 private:

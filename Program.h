@@ -4,6 +4,8 @@
 #include "CommandHandler.h"
 #include "FileControl.h"
 
+//This class handles the main program execution
+
 class Program{
 
 private:
