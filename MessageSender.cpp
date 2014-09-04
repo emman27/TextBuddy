@@ -24,3 +24,11 @@ void MessageSender::printData(std::vector<std::string> &data){
 		std::cout << i + 1 << ". " << data[i] << std::endl;
 	}
 }
+
+void MessageSender::printMessage(std::string msg){
+	std::cout << msg << std::endl;
+}
+
+void MessageSender::printMessageWithoutNewLine(std::string msg){
+	std::cout << msg;
+}

@@ -4,7 +4,7 @@
 std::vector<std::string> CommandHandler::add(std::vector<std::string> &data, std::string filename){
 	std::string line;
 	std::getline(std::cin, line);
-	std::cout << "Added to " << filename << ": " << line << std::endl;
+	print.printMessage("Added to " + filename + ": " + line);
 	data.push_back(line.substr(1, std::string::npos));
 	return data;
 }
@@ -15,7 +15,7 @@ std::vector<std::string> CommandHandler::del(std::vector<std::string> &data, std
 	unsigned int linenum;
 	std::cin >> linenum;
 	if (linenum <= data.size() && linenum > 0){
-		std::cout << "Removed from " << filename << ": " << data[linenum - 1] << std::endl;
+		print.printMessage("Removed from " + filename + ": " + data[linenum-1]);
 		data.erase(data.begin() + linenum - 1);
 	}
 	else{
@@ -27,7 +27,7 @@ std::vector<std::string> CommandHandler::del(std::vector<std::string> &data, std
 //Removes all data from the dataset
 std::vector<std::string> CommandHandler::clear(std::vector<std::string> &data, std::string filename){
 	data.clear();
-	std::cout << "All content deleted from " << filename << std::endl;
+	print.printMessage("All content deleted from " + filename);
 	return data;
 }
 

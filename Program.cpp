@@ -3,7 +3,7 @@
 //Prompts user to input a command
 std::string Program::requestCommand(){
 	std::string cmd;
-	std::cout << "command: ";
+	p.printMessageWithoutNewLine("command: ");
 	std::cin >> cmd;
 	return cmd;
 }
