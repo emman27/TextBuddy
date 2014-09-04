@@ -11,8 +11,7 @@ class FileControl{
 private:
 	std::fstream myFile;
 	MessageSender p;
-	static const std::string FILE_ALREADY_SPECIFIED;
-	static const int EXPECTED_ARG_NUMBER;
+	std::string FILE_ALREADY_SPECIFIED;
 
 public:
 	FileControl();

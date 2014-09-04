@@ -18,7 +18,5 @@ public:
 	void printErrorMsg(std::string msg);
 	void printData(std::vector<std::string> &data);
 	void printWelcome(std::string filename);
-	void printMessage(std::string msg);
-	void printMessageWithoutNewLine(std::string msg);
 };
 #endif

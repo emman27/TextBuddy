@@ -1,16 +1,14 @@
 #include "FileControl.h"
 
-const std::string FileControl::FILE_ALREADY_SPECIFIED = "filealreadyspecified";
-const int FileControl::EXPECTED_ARG_NUMBER = 2;
-
 FileControl::FileControl(){
+	FILE_ALREADY_SPECIFIED = "filealreadyspecified";
 }
 
 //Gets intended text file used for storage from user
 //File name must be legitimate - ends with .txt
 std::string FileControl::getFilename(){
 	std::string s;
-	p.printMessageWithoutNewLine("Enter filename: ");
+	std::cout << "Enter filename: ";
 	std::cin >> s;
 	return s;
 }
@@ -28,7 +26,7 @@ std::string FileControl::checkFile(int i){
 }
 
 bool FileControl::checkFileSpecified(int n){
-	return n == EXPECTED_ARG_NUMBER;
+	return n>1;
 }
 
 //Reads the text file specified and returns the data in form of a vector
