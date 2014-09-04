@@ -1,14 +1,21 @@
 #include "MessageSender.h"
 
+MessageSender::MessageSender(){
+}
+
+const std::string MessageSender::MESSAGE_ERROR = "Operation failed. Reason: ";
+const std::string MessageSender::MESSAGE_WELCOME = "Welcome to TextBuddy. %s is ready for use\n";
+
+
 //Prints error message given as a string
 void MessageSender::printErrorMsg(std::string msg){
 	std::vector<std::string> data;
-	std::cout << "Operation failed. Reason: " << msg << std::endl;
+	std::cout << MESSAGE_ERROR << msg << std::endl;
 }
 
 //Prints welcome message with given string which is the name of the txt file
 void MessageSender::printWelcome(std::string filename){
-	std::cout << "Welcome to TextBuddy. " << filename << " is ready for use\n";
+	printf(MESSAGE_WELCOME.c_str(), filename.c_str());
 }
 
 //Prints all data in the file, given the data as a vector
